@@ -34,8 +34,7 @@ export class AuthProvider {
   		// send the data to the api
   		this.http.post(`${Config.devApiUrl}accounts/`, details, {headers: headers})
         .subscribe(res => {
-          const data = res.json();
-          resolve(data);
+          resolve(res);
         }, err => {
           reject(err);
         });
@@ -51,11 +50,7 @@ export class AuthProvider {
       // send the data to the api
       this.http.post(`${Config.devApiUrl}auth/login/`, credentials, {headers: headers})
         .subscribe(res => {
-          const data = res.json();
-          this.token = data.key;
-          this.storage.set('token', this.token);
-
-          resolve(data);
+          resolve(res);
         }, err => {
           reject(err);
         });
@@ -71,8 +66,7 @@ export class AuthProvider {
 
       this.http.post(`${Config.devApiUrl}auth/logout/`, {headers: headers})
         .subscribe(res => {
-          const data = res.json();
-          resolve(data);
+          resolve(res);
         }, err => {
           reject(err);
         });
