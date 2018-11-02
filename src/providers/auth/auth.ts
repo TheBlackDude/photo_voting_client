@@ -19,7 +19,12 @@ export class AuthProvider {
 
   // Check if the user is already authenticated
   isAuthenticated() {
-  	if (this.storage.get('token')) {
+    // get the token
+    this.storage.get('token').then((val) => {
+        this.token = val
+      });
+
+  	if (this.token) {
   		return true
   	}
   	return false
@@ -59,8 +64,7 @@ export class AuthProvider {
 
   logout() {
 
-    if (this.isAuthenticated()) {
-      return new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       const headers = new HttpHeaders()
       headers.append('Authorization', this.token);
 
@@ -71,9 +75,7 @@ export class AuthProvider {
           reject(err);
         });
     });
-    }
 
-    return {"msg": "you are not loged in"}
   }
 
 }

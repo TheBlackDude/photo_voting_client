@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http'; 
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -22,7 +23,11 @@ import { ImagesProvider } from '../providers/images/images';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot({
+      name: 'token_db',
+      driverOrder: ['indexeddb', 'sqlite']
+    }),
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

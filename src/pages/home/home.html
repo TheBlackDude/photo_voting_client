@@ -7,8 +7,15 @@
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  <ion-row class="home-container">
+  <p>This is your Home Page</p>
+
+  <button ion-button full (click)="gotoRegister()" color="primary" class="login-button">Register</button>
+  <div *ngIf="token == 'yes'">
+    <button ion-button full (click)="logout()" color="primary" class="login-button">Logout</button>
+  </div>
+  <div *ngIf="token == 'no'">
+    <button ion-button full (click)="gotoLogin()" color="primary" class="login-button">Login</button>
+  </div>
+  </ion-row>
 </ion-content>
