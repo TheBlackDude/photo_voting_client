@@ -1,0 +1,7 @@
+{
+  "name": "photo_voting_client",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}
