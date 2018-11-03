@@ -60,7 +60,7 @@ export class LoginPage {
 
     this.authService.login(credentials).then((res: any) => {
         this.loading.dismiss();
-        this.storage.set('token', res.key);
+        this.storage.set('token', res.token);
         this.showToast('LogedIn successfuly', 3000);
         this.navCtrl.setRoot(HomePage);
     }, (err) => {

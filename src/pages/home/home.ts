@@ -3,6 +3,7 @@ import { NavController, ToastController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 import { AuthProvider } from '../../providers/auth/auth';
+import { ImagesProvider } from '../../providers/images/images';
 import { LoginPage } from '../login/login';
 import { SignupPage } from '../signup/signup';
 
@@ -14,13 +15,22 @@ export class HomePage {
 
 	toast: any;
 	token: any;
+	images: any;
 
   constructor(public navCtrl: NavController, public toastCtrl: ToastController,
-  	public authService: AuthProvider, public storage: Storage) {
+  	public authService: AuthProvider, public storage: Storage,
+  	public imageService: ImagesProvider) {
 
   }
 
   ionViewDidLoad() {
+  	// get the images
+  	this.imageService.getImages().then((res: any) => {
+  		this.images = res;
+  		console.log(res);
+  	}, (err) => {
+  		console.log(err);
+  	})
   	// get the token
     this.storage.get('token').then((val) => {
         if (val) {
@@ -40,14 +50,9 @@ export class HomePage {
   }
 
   logout() {
-  	this.authService.logout().then((res: any) => {
-  		console.log(res);
-  		this.storage.remove('token');
-  		this.showToast(res.detail, 3000);
-  		this.ionViewDidLoad();
-  	}, (err) => {
-  		console.log(err);
-  	})
+  	this.authService.logout()
+  	this.showToast('successfully loged out', 3000);
+  	this.ionViewDidLoad();
   }
 
 

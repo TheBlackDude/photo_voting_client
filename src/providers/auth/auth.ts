@@ -53,7 +53,7 @@ export class AuthProvider {
       headers.append('Content-Type', 'application/json')
 
       // send the data to the api
-      this.http.post(`${Config.devApiUrl}auth/login/`, credentials, {headers: headers})
+      this.http.post(`${Config.devApiUrl}auth/`, credentials, {headers: headers})
         .subscribe(res => {
           resolve(res);
         }, err => {
@@ -63,19 +63,7 @@ export class AuthProvider {
   }
 
   logout() {
-
-    return new Promise((resolve, reject) => {
-      const headers = new HttpHeaders()
-      headers.append('Authorization', this.token);
-
-      this.http.post(`${Config.devApiUrl}auth/logout/`, {headers: headers})
-        .subscribe(res => {
-          resolve(res);
-        }, err => {
-          reject(err);
-        });
-    });
-
+    this.storage.remove('token');
   }
 
 }

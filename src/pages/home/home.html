@@ -1,21 +1,38 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      Image voting
     </ion-title>
+    <ion-buttons end>
+    <button ion-button icon-only (click)="addTodo()"><ion-icon name="add"></ion-icon></button>
+  </ion-buttons>
+  <ion-buttons start>
+    <button *ngIf="token == 'yes'" ion-button icon-only (click)="logout()"><ion-icon name="power"></ion-icon></button>
+  </ion-buttons>
+  <ion-buttons start>
+    <button *ngIf="token == 'no'" ion-button icon-only (click)="gotoLogin()"><ion-icon name="mail"></ion-icon></button>
+  </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
+  <ion-list no-lines>
+ 
+    <ion-item-sliding *ngFor="let image of images">
+ 
+      <ion-item>
+        <ion-img width="300" height="300" src="{{image.image}}">
+        </ion-img>
+        <h4>{{image.title}}</h4>
+        <p>{{image.description}}</p>
+        <p>{{image.category}}
+      </ion-item>
+    </ion-item-sliding>
+ 
+  </ion-list>
   <ion-row class="home-container">
   <p>This is your Home Page</p>
 
   <button ion-button full (click)="gotoRegister()" color="primary" class="login-button">Register</button>
-  <div *ngIf="token == 'yes'">
-    <button ion-button full (click)="logout()" color="primary" class="login-button">Logout</button>
-  </div>
-  <div *ngIf="token == 'no'">
-    <button ion-button full (click)="gotoLogin()" color="primary" class="login-button">Login</button>
-  </div>
   </ion-row>
 </ion-content>
