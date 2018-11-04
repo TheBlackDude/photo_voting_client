@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Storage } from '@ionic/storage';
 
 import { Config } from '../../utils/config';
 import { AuthProvider } from '../auth/auth';
@@ -13,13 +14,19 @@ import { AuthProvider } from '../auth/auth';
 @Injectable()
 export class ImagesProvider {
 
-  constructor(public http: HttpClient, public authService: AuthProvider) {
+	token: any;
+
+  constructor(public http: HttpClient, public authService: AuthProvider,
+  	public storage: Storage) {
     console.log('Hello ImagesProvider Provider');
   }
 
   getImages() {
 
   	return new Promise((resolve, reject) => {
+  		this.storage.get('token').then((val) => {
+          this.token = val
+        });
   		const headers = new HttpHeaders()
   		headers.append('Content-Type', 'application/json')
 
@@ -33,15 +40,13 @@ export class ImagesProvider {
   	});
   }
 
-  createImage(image) {
+  createImage(info) {
 
   	return new Promise((resolve, reject) => {
-  		const headers = new HttpHeaders()
-  		headers.append('Content-Type', 'application/json')
-  		headers.append('Authorization', this.authService.token);
-
   		// send the data to the api
-  		this.http.post(`${Config.devApiUrl}images/`, image, {headers: headers})
+  		this.http.post(`${Config.devApiUrl}images/`, info, {
+  			headers: new HttpHeaders().set('Authorization', this.token),
+  		})
         .subscribe(res => {
           resolve(res);
         }, err => {

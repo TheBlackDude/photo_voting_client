@@ -6,10 +6,16 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { IonicStorageModule } from '@ionic/storage';
 
+import { File } from '@ionic-native/file';
+import { Transfer } from '@ionic-native/transfer';
+import { FilePath } from '@ionic-native/file-path';
+import { Camera } from '@ionic-native/camera';
+
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { SignupPage } from '../pages/signup/signup';
 import { LoginPage } from '../pages/login/login';
+import { AddImagePage } from '../pages/add-image/add-image';
 import { AuthProvider } from '../providers/auth/auth';
 import { ImagesProvider } from '../providers/images/images';
 
@@ -18,7 +24,8 @@ import { ImagesProvider } from '../providers/images/images';
     MyApp,
     HomePage,
     SignupPage,
-    LoginPage
+    LoginPage,
+    AddImagePage
   ],
   imports: [
     BrowserModule,
@@ -34,11 +41,16 @@ import { ImagesProvider } from '../providers/images/images';
     MyApp,
     HomePage,
     SignupPage,
-    LoginPage
+    LoginPage,
+    AddImagePage
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    File,
+    Transfer,
+    Camera,
+    FilePath,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
     ImagesProvider

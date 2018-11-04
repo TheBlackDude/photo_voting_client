@@ -57,7 +57,7 @@ export class HomePage {
   logout() {
   	this.authService.logout()
   	this.showToast('successfully loged out', 3000);
-  	this.ionViewDidLoad();
+  	this.navCtrl.push(LoginPage);
   }
 
 
