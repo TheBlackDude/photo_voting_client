@@ -8,6 +8,7 @@ import {
 	LoadingController,
 	ActionSheetController
 } from 'ionic-angular';
+import { Geolocation } from '@ionic-native/geolocation';
 
 import { File } from '@ionic-native/file';
 import { Transfer, TransferObject } from '@ionic-native/transfer';
@@ -45,11 +46,13 @@ export class AddImagePage {
   	private camera: Camera, private transfer: Transfer, private file: File,
   	private filePath: FilePath, public actionSheetCtrl: ActionSheetController,
   	public toastCtrl: ToastController, public platform: Platform,
-  	public loadingCtrl: LoadingController, public imageService: ImagesProvider) {
+  	public loadingCtrl: LoadingController, public imageService: ImagesProvider,
+  	private geolocation: Geolocation) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad AddImagePage');
+    // get location
+    this.getLocation();
   }
 
   presentActionSheet() {
@@ -186,6 +189,17 @@ export class AddImagePage {
 	    this.presentToast('Error while uploading file.', 3000);
 	  });
 	}
+
+	getLocation(){
+    this.geolocation.getCurrentPosition().then((res) => {
+      // resp.coords.latitude
+      // resp.coords.longitude
+      this.location = 'lat '+res.coords.latitude+', lang '+res.coords.longitude;
+    }).catch((error) => {
+    	this.presentToast('Error getting location', 3000);
+        console.log('Error getting location', error);
+    });
+  }
 
    presentToast(msg, time) {
 

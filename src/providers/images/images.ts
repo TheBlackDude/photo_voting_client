@@ -45,7 +45,7 @@ export class ImagesProvider {
   	return new Promise((resolve, reject) => {
   		// send the data to the api
   		this.http.post(`${Config.devApiUrl}images/`, info, {
-  			headers: new HttpHeaders().set('Authorization', this.token),
+  			headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.token),
   		})
         .subscribe(res => {
           resolve(res);

@@ -11,6 +11,8 @@ import { Transfer } from '@ionic-native/transfer';
 import { FilePath } from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera';
 
+import { Geolocation } from '@ionic-native/geolocation';
+
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { SignupPage } from '../pages/signup/signup';
@@ -51,6 +53,7 @@ import { ImagesProvider } from '../providers/images/images';
     Transfer,
     Camera,
     FilePath,
+    Geolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
     ImagesProvider

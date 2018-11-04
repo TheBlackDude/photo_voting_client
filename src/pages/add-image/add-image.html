@@ -38,8 +38,15 @@
                     <ion-input [(ngModel)]="description" placeholder="Description" type="text"></ion-input>
                 </ion-item>
                 <ion-item>
-                    <ion-label><ion-icon name="person"></ion-icon></ion-label>
-                    <ion-input [(ngModel)]="category" placeholder="Category" type="text"></ion-input>
+                    <ion-label>Category</ion-label>
+                    <ion-select [(ngModel)]="category">
+                        <ion-option value="people">People</ion-option>
+                        <ion-option value="nature">Nature</ion-option>
+                        <ion-option value="city_life">City Life</ion-option>
+                        <ion-option value="love">Love</ion-option>
+                        <ion-option value="sport">Sport</ion-option>
+                        <ion-option value="family">Family</ion-option>
+                    </ion-select>
                 </ion-item>
                 <ion-item>
                     <ion-label><ion-icon name="person"></ion-icon></ion-label>
