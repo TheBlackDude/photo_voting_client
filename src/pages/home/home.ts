@@ -6,6 +6,7 @@ import { AuthProvider } from '../../providers/auth/auth';
 import { ImagesProvider } from '../../providers/images/images';
 import { LoginPage } from '../login/login';
 import { SignupPage } from '../signup/signup';
+import { AddImagePage } from '../add-image/add-image';
 
 @Component({
   selector: 'page-home',
@@ -47,6 +48,10 @@ export class HomePage {
 
   gotoRegister() {
   	this.navCtrl.push(SignupPage);
+  }
+
+  addImage() {
+  	this.navCtrl.push(AddImagePage);
   }
 
   logout() {
