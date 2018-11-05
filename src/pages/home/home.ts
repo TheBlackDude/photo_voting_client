@@ -7,6 +7,7 @@ import { ImagesProvider } from '../../providers/images/images';
 import { LoginPage } from '../login/login';
 import { SignupPage } from '../signup/signup';
 import { AddImagePage } from '../add-image/add-image';
+import { ImageDetailPage } from '../image-detail/image-detail';
 
 @Component({
   selector: 'page-home',
@@ -52,6 +53,10 @@ export class HomePage {
 
   addImage() {
   	this.navCtrl.push(AddImagePage);
+  }
+
+  imageDetail(image) {
+  	this.navCtrl.push(ImageDetailPage, image);
   }
 
   logout() {

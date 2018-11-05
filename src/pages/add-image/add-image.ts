@@ -16,6 +16,7 @@ import { FilePath } from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera';
 
 import { ImagesProvider } from '../../providers/images/images';
+import { HomePage } from '../home/home';
 import { Config } from '../../utils/config';
 
 /**
@@ -183,10 +184,11 @@ export class AddImagePage {
 	  fileTransfer.upload(targetPath, url, options).then(data => {
 	    this.loading.dismissAll()
 	    this.presentToast('Image succesful uploaded.', 3000);
+	    this.navCtrl.push(HomePage);
 	  }, err => {
 	  	console.log(err)
 	    this.loading.dismissAll()
-	    this.presentToast('Error while uploading file.', 3000);
+	    this.presentToast('Error while uploading image.', 3000);
 	  });
 	}
 
@@ -194,7 +196,7 @@ export class AddImagePage {
     this.geolocation.getCurrentPosition().then((res) => {
       // resp.coords.latitude
       // resp.coords.longitude
-      this.location = 'lat '+res.coords.latitude+', lang '+res.coords.longitude;
+      this.location = 'lat '+res.coords.latitude+', lng '+res.coords.longitude;
     }).catch((error) => {
     	this.presentToast('Error getting location', 3000);
         console.log('Error getting location', error);

@@ -20,18 +20,18 @@
  
     <ion-item-sliding *ngFor="let image of images">
  
-      <ion-item>
+      <ion-item (click)="imageDetail(image)">
         <ion-img width="300" height="300" src="{{image.image}}">
         </ion-img>
         <h4>{{image.title}}</h4>
         <p>{{image.description}}</p>
         <p>{{image.category}}
       </ion-item>
+
     </ion-item-sliding>
  
   </ion-list>
   <ion-row class="home-container">
-  <p>This is your Home Page</p>
 
   <button ion-button full (click)="gotoRegister()" color="primary" class="login-button">Register</button>
   </ion-row>

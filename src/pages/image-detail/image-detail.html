@@ -1,0 +1,42 @@
+<!--
+  Generated template for the ImageDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>image-detail</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-img width="300" height="300" src="{{image.image}}">
+        </ion-img>
+        <h4>Title: {{image.title}}</h4>
+        <p>Description: {{image.description}}</p>
+        <p>Category: {{image.category}}</p>
+        <p>Location: {{image.location}}</p>
+        <p>Up Votes: {{image.upvote}}</p>
+        <p>Down Votes: {{image.downvote}}</p>
+      </ion-item>
+
+      <button ion-button (click)="vote('upvote')" [disabled]="upvoteCheck === null">Up Vote</button>
+      <button ion-button (click)="vote('downvote')" [disabled]="downvoteCheck === null">Down Vote</button>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+        <ion-col>
+            <button ion-button (click)="gotoHome()" class="create-account">View all Images</button>
+        </ion-col>
+    </ion-row>
+
+</ion-content>

@@ -55,4 +55,16 @@ export class ImagesProvider {
   	});
   }
 
+  vote(votes, id) {
+  	return new Promise((resolve, reject) => {
+  		// send the data to the api
+  		this.http.put(`${Config.devApiUrl}image/vote/${id}/`, votes)
+        .subscribe(res => {
+          resolve(res);
+        }, err => {
+          reject(err);
+        });
+  	});
+  }
+
 }
