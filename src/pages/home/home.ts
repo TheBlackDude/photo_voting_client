@@ -8,6 +8,7 @@ import { LoginPage } from '../login/login';
 import { SignupPage } from '../signup/signup';
 import { AddImagePage } from '../add-image/add-image';
 import { ImageDetailPage } from '../image-detail/image-detail';
+import { RankPage } from '../rank/rank';
 
 @Component({
   selector: 'page-home',
@@ -57,6 +58,16 @@ export class HomePage {
 
   imageDetail(image) {
   	this.navCtrl.push(ImageDetailPage, image);
+  }
+
+  rankImages() {
+  	const highVotes = [];
+  	const lowVotes = [];
+
+  	for (const image of this.images ) {
+  		(image.upvote > 5 && image.downvote < 5) ? highVotes.push(image) : lowVotes.push(image);
+  	}
+  	this.navCtrl.push(RankPage, {highVotes: [...highVotes], lowVotes: [...lowVotes]});
   }
 
   logout() {

@@ -19,6 +19,7 @@ import { SignupPage } from '../pages/signup/signup';
 import { LoginPage } from '../pages/login/login';
 import { AddImagePage } from '../pages/add-image/add-image';
 import { ImageDetailPage } from '../pages/image-detail/image-detail';
+import { RankPage } from '../pages/rank/rank';
 import { AuthProvider } from '../providers/auth/auth';
 import { ImagesProvider } from '../providers/images/images';
 
@@ -29,7 +30,8 @@ import { ImagesProvider } from '../providers/images/images';
     SignupPage,
     LoginPage,
     AddImagePage,
-    ImageDetailPage
+    ImageDetailPage,
+    RankPage
   ],
   imports: [
     BrowserModule,
@@ -47,7 +49,8 @@ import { ImagesProvider } from '../providers/images/images';
     SignupPage,
     LoginPage,
     AddImagePage,
-    ImageDetailPage
+    ImageDetailPage,
+    RankPage
   ],
   providers: [
     StatusBar,
