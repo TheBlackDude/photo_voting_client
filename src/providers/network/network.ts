@@ -4,7 +4,7 @@ import {
 	ToastController,
 	Platform
 } from 'ionic-angular';
-import { Network } from '@ionic-native/network/ngx'
+import { Network } from '@ionic-native/network/ngx';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 /*
@@ -36,8 +36,15 @@ export class NetworkProvider {
   }
 
   public initializeNetworkEvents() {
- 
+  	console.log('Inside func');
+  	console.log(this.network);
+  	/* for some reason the network plugin have some issues.
+  	   I can't access the functions "onDisconnect and onConnect"
+  	   am getting Object(...) is not a function.
+  	   I've spent 5 hours trying to figure it out, but no luck
+  	 */
     this.network.onDisconnect().subscribe(() => {
+    	console.log('Inside onDisconnect');
       if (this.status.getValue() === ConnectionStatus.Online) {
         console.log('WE ARE OFFLINE');
         this.updateNetworkStatus(ConnectionStatus.Offline);

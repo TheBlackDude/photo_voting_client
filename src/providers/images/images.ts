@@ -4,6 +4,8 @@ import { Storage } from '@ionic/storage';
 
 import { Config } from '../../utils/config';
 import { AuthProvider } from '../auth/auth';
+// import { OfflineManagerProvider } from '../offline-manager/offline-manager';
+// import { NetworkProvider, ConnectionStatus } from '../network/network';
 
 /*
   Generated class for the ImagesProvider provider.
@@ -11,6 +13,9 @@ import { AuthProvider } from '../auth/auth';
   See https://angular.io/guide/dependency-injection for more info on providers
   and Angular DI.
 */
+
+const API_STORAGE_KEY = 'key';
+
 @Injectable()
 export class ImagesProvider {
 
@@ -24,15 +29,25 @@ export class ImagesProvider {
   getImages() {
 
   	return new Promise((resolve, reject) => {
-  		this.storage.get('token').then((val) => {
-          this.token = val
+        /* if offline return cached data */
+        // if (this.network.getCurrentNetworkStatus() == ConnectionStatus.Offline) {
+        // 	this.getLocalData('images').then(res => {
+        // 		resolve(res);
+        // 	});
+        // } else {
+        // 	// put below code here, once the network plugin is working
+        // }
+        this.storage.get('token').then((val) => {
+              this.token = val
         });
-  		const headers = new HttpHeaders()
+    	const headers = new HttpHeaders()
   		headers.append('Content-Type', 'application/json')
 
   		// send the data to the api
   		this.http.get(`${Config.devApiUrl}images/`, {headers: headers})
         .subscribe(res => {
+          /* Cache data */
+          this.saveDataLocally('images', res);
           resolve(res);
         }, err => {
           reject(err);
@@ -43,6 +58,16 @@ export class ImagesProvider {
   createImage(info) {
 
   	return new Promise((resolve, reject) => {
+
+  		// if (this.network.getCurrentNetworkStatus() == ConnectionStatus.Offline) {
+  		// 	/* Store request locally */
+  		// 	this.offlineManager.storeRequest(`${Config.devApiUrl}images/`, 'post', info)
+  		// 	  .then(res => {
+  		// 	  	resolve({'msg': 'image data saved locally'});
+  		// 	});
+  		// } else {
+  		// 	// put the code below here, once the network plugin is working
+  		// }
   		// send the data to the api
   		this.http.post(`${Config.devApiUrl}images/`, info, {
   			headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.token),
@@ -65,6 +90,14 @@ export class ImagesProvider {
           reject(err);
         });
   	});
+  }
+
+  getLocalData(key) {
+  	return this.storage.get(`${API_STORAGE_KEY}-${key}`);
+  }
+
+  saveDataLocally(key, data) {
+  	this.storage.set(`${API_STORAGE_KEY}-${key}`, data);
   }
 
 }
