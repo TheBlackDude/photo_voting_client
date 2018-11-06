@@ -1,18 +1,9 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      Image voting
-    </ion-title>
-    <ion-buttons end>
-    <button ion-button icon-only (click)="addImage()"><ion-icon name="add"></ion-icon></button>
-  </ion-buttons>
-  <ion-buttons start>
-    <button *ngIf="token == 'yes'" ion-button icon-only (click)="logout()"><ion-icon name="power"></ion-icon></button>
-  </ion-buttons>
-  <ion-buttons start>
-    <button *ngIf="token == 'no'" ion-button icon-only (click)="gotoLogin()"><ion-icon name="mail"></ion-icon></button>
-  </ion-buttons>
-  </ion-navbar>
+  <ion-title>
+      Image voting home page
+  </ion-title>
+  <button ion-button icon-only (click)="logout()"><ion-icon name="power"></ion-icon></button>
+  <button ion-button icon-only (click)="addImage()"><ion-icon name="add"></ion-icon></button>
 </ion-header>
 
 <ion-content padding>
@@ -20,7 +11,7 @@
  
     <ion-item-sliding *ngFor="let image of images">
  
-      <ion-item (click)="imageDetail(image)">
+      <ion-item tappable (click)="imageDetail(image)">
         <ion-img width="300" height="300" src="{{image.image}}">
         </ion-img>
         <h4>{{image.title}}</h4>
@@ -29,11 +20,9 @@
       </ion-item>
 
     </ion-item-sliding>
-    <button ion-button (click)="rankImages()">Display Images with High & Low votes</button>
  
   </ion-list>
   <ion-row class="home-container">
-
-  <button ion-button full (click)="gotoRegister()" color="primary" class="login-button">Register</button>
+    <button ion-button (click)="rankImages()">Display Images with High & Low votes</button>
   </ion-row>
 </ion-content>

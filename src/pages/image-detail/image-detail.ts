@@ -73,7 +73,7 @@ export class ImageDetailPage {
    	 this.toast = this.toastCtrl.create({
    	 	message: msg,
    	 	duration: time,
-   	 	position: 'bottom'
+   	 	position: 'top'
    	 });
 
    	 this.toast.present();

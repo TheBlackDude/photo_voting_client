@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 
 import { AuthProvider } from '../../providers/auth/auth';
 import { HomePage } from '../home/home';
@@ -28,16 +29,17 @@ export class SignupPage {
 	toast: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-  	public authService: AuthProvider, public toastCtrl: ToastController) {
+  	public authService: AuthProvider, public toastCtrl: ToastController,
+  	public storage: Storage) {
   }
 
   ionViewDidLoad() {
     if (this.authService.isAuthenticated()) {
-    	this.showToast('Already Authenticated', 3000);
+    	this.presentToast('Already Authenticated', 3000);
     	// redirect to HomePage
-    	this.navCtrl.setRoot(HomePage);
+    	this.navCtrl.push(HomePage);
     } else {
-    	this.showToast('Register', 3000);
+    	this.presentToast('Register', 3000);
     }
   }
 
@@ -53,22 +55,33 @@ export class SignupPage {
     };
  
     this.authService.createAccount(details).then((res: any) => {
-      this.showToast(res.msg, 3000);
-      this.navCtrl.setRoot(HomePage);
+      this.presentToast(res.msg, 3000);
+      console.log(res);
+      /* if account created successfully,
+         Log user in automagically
+       */
+      this.authService.login({username: this.username, password: this.password}).then((res: any) => {
+      	this.storage.set('token', res.token);
+        this.presentToast('LogedIn successfuly', 3000);
+        this.navCtrl.push(HomePage);
+      }, err => {
+      	this.presentToast('Your username or password is not correct!', 3000);
+        console.log(err);
+      });
     }, (err) => {
-    	this.showToast('Make sure your information is correct!', 3000);
+    	this.presentToast('Make sure your information is correct!', 3000);
         console.log(err);
     });
  
   }
 
 
-  showToast(msg, time) {
+  presentToast(msg, time) {
 
    	 this.toast = this.toastCtrl.create({
    	 	message: msg,
    	 	duration: time,
-   	 	position: 'bottom'
+   	 	position: 'top'
    	 });
 
    	 this.toast.present();

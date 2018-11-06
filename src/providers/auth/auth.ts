@@ -21,12 +21,12 @@ export class AuthProvider {
   isAuthenticated() {
     // get the token
     this.storage.get('token').then((val) => {
-        this.token = val
+        if (val) {
+          this.token = val
+          return true
+        }
       });
-
-  	if (this.token) {
-  		return true
-  	}
+    
   	return false
   }
 

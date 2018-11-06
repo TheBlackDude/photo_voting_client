@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { HomePage } from '../home/home';
-
 /**
  * Generated class for the RankPage page.
  *
@@ -27,10 +25,6 @@ export class RankPage {
     console.log('ionViewDidLoad RankPage');
     this.highVotes = this.navParams.data.highVotes;
     this.lowVotes = this.navParams.data.lowVotes;
-  }
-
-  gotoHome() {
-  	this.navCtrl.push(HomePage);
   }
 
 }

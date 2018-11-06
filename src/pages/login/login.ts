@@ -39,12 +39,12 @@ export class LoginPage {
     this.showLoading('Checking for authentication');
 
     if (this.authService.isAuthenticated()) {
-    	this.showToast('Already Authenticated', 3000);
+    	this.presentToast('Already Authenticated', 3000);
     	this.loading.dismiss();
     	// redirect to HomePage
-    	this.navCtrl.setRoot(HomePage);
+    	this.navCtrl.push(HomePage);
     } else {
-    	this.showToast('Go ahead and login', 3000);
+    	this.presentToast('Go ahead and login', 3000);
     	this.loading.dismiss();
     }
   }
@@ -61,10 +61,10 @@ export class LoginPage {
     this.authService.login(credentials).then((res: any) => {
         this.loading.dismiss();
         this.storage.set('token', res.token);
-        this.showToast('LogedIn successfuly', 3000);
-        this.navCtrl.setRoot(HomePage);
+        this.presentToast('LogedIn successfuly', 3000);
+        this.navCtrl.push(HomePage);
     }, (err) => {
-    	this.showToast('Your username or password is not correct!', 3000);
+    	this.presentToast('Your username or password is not correct!', 3000);
         this.loading.dismiss();
         console.log(err);
     });
@@ -85,7 +85,7 @@ export class LoginPage {
     this.loading.present();
   }
 
-   showToast(msg, time) {
+   presentToast(msg, time) {
 
    	 this.toast = this.toastCtrl.create({
    	 	message: msg,

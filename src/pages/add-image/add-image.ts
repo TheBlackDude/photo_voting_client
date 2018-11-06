@@ -147,7 +147,11 @@ export class AddImagePage {
 
 		this.imageService.createImage(info).then((res: any) => {
 			console.log(res);
-			this.uploadImage(res.id);
+			if (res.msg === 'image data saved locally') {
+				this.presentToast(res.msg, 3000);
+			} else {
+				this.uploadImage(res.id);
+			}
 		}, (err) => {
 			console.log(err);
 		});

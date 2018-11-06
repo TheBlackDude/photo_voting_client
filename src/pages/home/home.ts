@@ -4,8 +4,9 @@ import { Storage } from '@ionic/storage';
 
 import { AuthProvider } from '../../providers/auth/auth';
 import { ImagesProvider } from '../../providers/images/images';
+// import { OfflineManagerProvider } from '../../providers/offline-manager/offline-manager';
+// import { NetworkProvider, ConnectionStatus } from '../../providers/network/network';
 import { LoginPage } from '../login/login';
-import { SignupPage } from '../signup/signup';
 import { AddImagePage } from '../add-image/add-image';
 import { ImageDetailPage } from '../image-detail/image-detail';
 import { RankPage } from '../rank/rank';
@@ -17,7 +18,6 @@ import { RankPage } from '../rank/rank';
 export class HomePage {
 
 	toast: any;
-	token: any;
 	images: any;
 
   constructor(public navCtrl: NavController, public toastCtrl: ToastController,
@@ -27,29 +27,33 @@ export class HomePage {
   }
 
   ionViewDidLoad() {
-  	// get the images
-  	this.imageService.getImages().then((res: any) => {
-  		this.images = res;
-  		console.log(res);
-  	}, (err) => {
-  		console.log(err);
-  	})
+  	/* Check the network */
+  	// the (network) plugin is not working
+
+  	// this.network.onNetworkChange().subscribe((status: ConnectionStatus) => {
+  	// 	if (status == ConnectionStatus.Online) {
+  	// 		this.offlineManager.checkForEvents().subscribe();
+  	// 	}
+  	// });
+
   	// get the token
     this.storage.get('token').then((val) => {
-        if (val) {
-        	this.token = 'yes'
+        if (!val) {
+        	this.navCtrl.push(LoginPage);
         } else {
-        	this.token = 'no'
+        	/* get the images.
+        	   Even though this this will only get called once but
+        	   on a real world application, we'll fix the (network plugin issue),
+        	   or implement another caching method to cache this data.
+        	 */
+		  	this.imageService.getImages().then((res: any) => {
+		  		this.images = res;
+		  		console.log(res);
+		  	}, (err) => {
+		  		console.log(err);
+		  	});
         }
       });
-  }
-
-  gotoLogin() {
-  	this.navCtrl.push(LoginPage);
-  }
-
-  gotoRegister() {
-  	this.navCtrl.push(SignupPage);
   }
 
   addImage() {
@@ -71,18 +75,18 @@ export class HomePage {
   }
 
   logout() {
-  	this.authService.logout()
-  	this.showToast('successfully loged out', 3000);
+  	this.authService.logout();
   	this.navCtrl.push(LoginPage);
+  	this.presentToast('successfully loged out', 3000);
   }
 
 
-  showToast(msg, time) {
+  presentToast(msg, time) {
 
    	 this.toast = this.toastCtrl.create({
    	 	message: msg,
    	 	duration: time,
-   	 	position: 'bottom'
+   	 	position: 'top'
    	 });
 
    	 this.toast.present();
