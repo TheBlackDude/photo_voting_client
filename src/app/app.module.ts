@@ -12,6 +12,7 @@ import { FilePath } from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera';
 
 import { Geolocation } from '@ionic-native/geolocation';
+import { Network } from '@ionic-native/network/ngx';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -22,6 +23,8 @@ import { ImageDetailPage } from '../pages/image-detail/image-detail';
 import { RankPage } from '../pages/rank/rank';
 import { AuthProvider } from '../providers/auth/auth';
 import { ImagesProvider } from '../providers/images/images';
+import { NetworkProvider } from '../providers/network/network';
+import { OfflineManagerProvider } from '../providers/offline-manager/offline-manager';
 
 @NgModule({
   declarations: [
@@ -37,7 +40,7 @@ import { ImagesProvider } from '../providers/images/images';
     BrowserModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot({
-      name: 'token_db',
+      name: 'voting',
       driverOrder: ['indexeddb', 'sqlite']
     }),
     HttpClientModule
@@ -61,8 +64,11 @@ import { ImagesProvider } from '../providers/images/images';
     FilePath,
     Geolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    Network,
     AuthProvider,
-    ImagesProvider
+    ImagesProvider,
+    NetworkProvider,
+    OfflineManagerProvider
   ]
 })
 export class AppModule {}
