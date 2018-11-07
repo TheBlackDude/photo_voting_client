@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 
-import { HomePage } from '../home/home';
 import { ImagesProvider } from '../../providers/images/images';
 
 /**
@@ -62,10 +61,6 @@ export class ImageDetailPage {
   		console.log(err);
   		this.presentToast('Vote not added!', 3000);
   	})
-  }
-
-  gotoHome() {
-  	this.navCtrl.push(HomePage);
   }
 
   presentToast(msg, time) {
